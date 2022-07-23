@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Schivei.Shop.Cart.Features</name>
+    </assembly>
+    <members>
+        <member name="T:Schivei.Shop.Cart.Features.ABaseController">
+            <summary>
+            Base controller
+            </summary>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.ABaseController.Ok(System.Threading.Tasks.Task{System.Exception})">
+            <summary>
+            Make success return
+            </summary>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.ABaseController.Ok``1(System.Threading.Tasks.Task{System.ValueTuple{``0,System.Exception}})">
+            <summary>
+            Make success return
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="task"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Schivei.Shop.Cart.Features.CartController">
+            <summary>
+            Shop Cart endpoints
+            </summary>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.CartController.#ctor(Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.CartController.Open">
+            <summary>
+            Open a new Cart
+            </summary>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.CartController.Resume(System.Guid)">
+            <summary>
+            Get cart resume
+            </summary>
+            <param name="cartId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.CartController.Get(System.Guid)">
+            <summary>
+            Get a cart
+            </summary>
+            <param name="cartId"></param>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.CartController.GetByUser(System.Guid)">
+            <summary>
+            Get a cart by user id
+            </summary>
+            <param name="userId">User id</param>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.CartController.SetUser(System.Guid,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartSetUserRequestVM)">
+            <summary>
+            Defines a user for an opened cart
+            </summary>
+            <param name="cartId">Cart Id</param>
+            <param name="request">Request View Model</param>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.CartController.AddOrUpdateCartItem(System.Guid,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartItemUpdateRequestVM)">
+            <summary>
+            Add an item to cart
+            </summary>
+            <param name="cartId"></param>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.CartController.CreateCartWithItems(Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CreateCartWithItemsRequestVM)">
+            <summary>
+            Create a cart with an item
+            </summary>
+            <param name="request"></param>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.CartController.DeleteItem(System.Guid,System.String)">
+            <summary>
+            Removes a cart item by sku
+            </summary>
+            <param name="cartId">Cart Id</param>
+            <param name="sku">SKU</param>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.CartController.ClearCart(System.Guid)">
+            <summary>
+            Clear the cart
+            </summary>
+            <param name="cartId"></param>
+        </member>
+        <member name="T:Schivei.Shop.Cart.Features.CheckoutController">
+            <summary>
+            Checkout Endpoint
+            </summary>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.CheckoutController.#ctor(Schivei.Shop.Cart.Infrastructure.Repositories.ICheckoutRepository)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.CheckoutController.Calculate(System.Guid,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutRequestVM)">
+            <summary>
+            Calculate the final payment value
+            </summary>
+            <param name="userId"></param>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Features.CheckoutController.DoPayment(System.Guid,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutDoPaymentRequestVM)">
+            <summary>
+            Do payment and clear the cart
+            </summary>
+            <param name="userId"></param>
+            <param name="requestVM"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

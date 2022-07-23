@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{56F64F9D-2B67-4817-B34C-1BC2F8C88358}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schivei.Shop.Cart", "src\Schivei.Shop.Cart\Schivei.Shop.Cart.csproj", "{A93BDDFD-94E3-4CBF-856D-7768A076BB51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F65AD48D-F33B-46A5-8AFE-014BECCA162C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schivei.Shop.Cart.Models", "Schivei.Shop.Cart.Models\Schivei.Shop.Cart.Models.csproj", "{D56C6F67-4FF7-479F-AB08-665A6B3231BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schivei.Shop.Cart.Features", "src\Schivei.Shop.Cart.Features\Schivei.Shop.Cart.Features.csproj", "{FB815F6B-C47E-4559-ABAD-868F0DAF2F81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schivei.Shop.Cart.Infrastructure", "src\Schivei.Shop.Cart.Infrastructure\Schivei.Shop.Cart.Infrastructure.csproj", "{8C127FC9-9347-4734-8561-51BABDCFB5AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schivei.Shop.Cart.Repositories", "src\Schivei.Shop.Cart.Repositories\Schivei.Shop.Cart.Repositories.csproj", "{5FB90308-CEA1-44F9-9633-3F0E91A98AAC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A93BDDFD-94E3-4CBF-856D-7768A076BB51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A93BDDFD-94E3-4CBF-856D-7768A076BB51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A93BDDFD-94E3-4CBF-856D-7768A076BB51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A93BDDFD-94E3-4CBF-856D-7768A076BB51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D56C6F67-4FF7-479F-AB08-665A6B3231BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D56C6F67-4FF7-479F-AB08-665A6B3231BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D56C6F67-4FF7-479F-AB08-665A6B3231BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D56C6F67-4FF7-479F-AB08-665A6B3231BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB815F6B-C47E-4559-ABAD-868F0DAF2F81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB815F6B-C47E-4559-ABAD-868F0DAF2F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB815F6B-C47E-4559-ABAD-868F0DAF2F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB815F6B-C47E-4559-ABAD-868F0DAF2F81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C127FC9-9347-4734-8561-51BABDCFB5AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C127FC9-9347-4734-8561-51BABDCFB5AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C127FC9-9347-4734-8561-51BABDCFB5AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C127FC9-9347-4734-8561-51BABDCFB5AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FB90308-CEA1-44F9-9633-3F0E91A98AAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FB90308-CEA1-44F9-9633-3F0E91A98AAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FB90308-CEA1-44F9-9633-3F0E91A98AAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FB90308-CEA1-44F9-9633-3F0E91A98AAC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A93BDDFD-94E3-4CBF-856D-7768A076BB51} = {56F64F9D-2B67-4817-B34C-1BC2F8C88358}
+		{D56C6F67-4FF7-479F-AB08-665A6B3231BA} = {56F64F9D-2B67-4817-B34C-1BC2F8C88358}
+		{FB815F6B-C47E-4559-ABAD-868F0DAF2F81} = {56F64F9D-2B67-4817-B34C-1BC2F8C88358}
+		{8C127FC9-9347-4734-8561-51BABDCFB5AC} = {56F64F9D-2B67-4817-B34C-1BC2F8C88358}
+		{5FB90308-CEA1-44F9-9633-3F0E91A98AAC} = {56F64F9D-2B67-4817-B34C-1BC2F8C88358}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CF4356B9-C269-441C-901D-22A07E948FEC}
+	EndGlobalSection
+EndGlobal

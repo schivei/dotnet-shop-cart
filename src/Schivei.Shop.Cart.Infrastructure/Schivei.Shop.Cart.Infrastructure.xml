@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Schivei.Shop.Cart.Infrastructure</name>
+    </assembly>
+    <members>
+        <member name="T:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartItemUpdateRequestVM">
+            <summary>
+            Cart item update quantity
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartItemUpdateRequestVM.Sku">
+            <summary>
+            Product SKU
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartItemUpdateRequestVM.Quantity">
+            <summary>
+            Quantity of products to buy
+            </summary>
+        </member>
+        <member name="T:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartSetUserRequestVM">
+            <summary>
+            Set user to a cart
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartSetUserRequestVM.UserId">
+            <summary>
+            User ID
+            </summary>
+        </member>
+        <member name="T:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutDoPaymentRequestVM">
+            <summary>
+            End checkout and clear cart
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutDoPaymentRequestVM.CardNumber">
+            <summary>
+            16 digits Card Number
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutDoPaymentRequestVM.CvcCode">
+            <summary>
+            3-4 digits security card code
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutDoPaymentRequestVM.CardName">
+            <summary>
+            Name equals printed at card
+            </summary>
+        </member>
+        <member name="T:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutRequestVM">
+            <summary>
+            Get checkout info
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutRequestVM.Coupon">
+            <summary>
+            Coupon code
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutRequestVM.ZipCode">
+            <summary>
+            Zip Code location
+            </summary>
+        </member>
+        <member name="T:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CreateCartWithItemsRequestVM">
+            <summary>
+            Create a new cart with an item
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CreateCartWithItemsRequestVM.UserId">
+            <summary>
+            User ID
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CreateCartWithItemsRequestVM.Sku">
+            <summary>
+            Product SKU
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CreateCartWithItemsRequestVM.Quantity">
+            <summary>
+            Quantity to buy
+            </summary>
+        </member>
+        <member name="T:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartItemResponseVM">
+            <summary>
+            Cart item response data
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartItemResponseVM.SKU">
+            <summary>
+            Product SKU
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartItemResponseVM.ProductName">
+            <summary>
+            Product Name
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartItemResponseVM.ProductImage">
+            <summary>
+            Product Image
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartItemResponseVM.ProductShortDescription">
+            <summary>
+            Product Short Description
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartItemResponseVM.ProductPrice">
+            <summary>
+            Current price
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartItemResponseVM.ProductSellingPrice">
+            <summary>
+            Current Selling Price (with promo discount)
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartItemResponseVM.Quantity">
+            <summary>
+            Buing quantity
+            </summary>
+        </member>
+        <member name="T:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartResponseVM">
+            <summary>
+            Common cart response data
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartResponseVM.Id">
+            <summary>
+            Cart ID
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartResponseVM.UserId">
+            <summary>
+            User ID
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartResponseVM.Items">
+            <summary>
+            Items to buy
+            </summary>
+        </member>
+        <member name="T:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartResumeResponseVM">
+            <summary>
+            Cart resume data
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartResumeResponseVM.Items">
+            <summary>
+            Items Count
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartResumeResponseVM.Subtotal">
+            <summary>
+            Buy subtotal
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartResumeResponseVM.Id">
+            <summary>
+            Cart ID
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CartResumeResponseVM.UserId">
+            <summary>
+            User ID
+            </summary>
+        </member>
+        <member name="T:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CheckoutResponseVM">
+            <summary>
+            Common Checkout response data
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CheckoutResponseVM.Subtotal">
+            <summary>
+            Subtotal
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CheckoutResponseVM.Discount">
+            <summary>
+            Discount
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CheckoutResponseVM.Delivery">
+            <summary>
+            Delivery Price
+            </summary>
+        </member>
+        <member name="P:Schivei.Shop.Cart.Infrastructure.DTOs.Responses.CheckoutResponseVM.Total">
+            <summary>
+            Total
+            </summary>
+        </member>
+        <member name="T:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository">
+            <summary>
+            Cart database and services repo
+            </summary>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.Resume(System.Guid)">
+            <summary>
+            Get cart resume
+            </summary>
+            <param name="cartId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.Create">
+            <summary>
+            Create new cart
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.Create(Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CreateCartWithItemsRequestVM)">
+            <summary>
+            Create a new cart with an item
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.OpenCart(System.Guid)">
+            <summary>
+            Get cart
+            </summary>
+            <param name="cartId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.ReOpen(System.Guid)">
+            <summary>
+            Get Cart by user id
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.AddOrUpdateCartItem(System.Guid,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartItemUpdateRequestVM)">
+            <summary>
+            Add or update cart item
+            </summary>
+            <param name="cartId"></param>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.SetUser(System.Guid,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartSetUserRequestVM)">
+            <summary>
+            Set user to a cart
+            </summary>
+            <param name="cartId"></param>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.Clear(System.Guid)">
+            <summary>
+            Clear a cart
+            </summary>
+            <param name="cartId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.DeleteItemBySKU(System.Guid,System.String)">
+            <summary>
+            Delete cart item by SKU
+            </summary>
+            <param name="cartId"></param>
+            <param name="sku"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Schivei.Shop.Cart.Infrastructure.Repositories.ICheckoutRepository">
+            <summary>
+            Checkout database and services repo
+            </summary>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICheckoutRepository.Calculate(System.Guid,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutRequestVM)">
+            <summary>
+            Calculate the final payment value
+            </summary>
+            <param name="userId"></param>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICheckoutRepository.DoPayment(System.Guid,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutDoPaymentRequestVM)">
+            <summary>
+            Do payment and clear the cart
+            </summary>
+            <param name="userId"></param>
+            <param name="resquest"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
