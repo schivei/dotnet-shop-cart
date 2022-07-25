@@ -4,7 +4,7 @@
 ## Build and Run
 Compile docker image from root folder using the following command:
 ```bash
-docker build -f src\Schivei.Shop.Cart\Dockerfile -t schivei.shop .
+docker build -f src/Schivei.Shop.Cart/Dockerfile -t schivei.shop .
 docker run --name schivei.shop -p 18080:80 schivei.shop
 ```
 
