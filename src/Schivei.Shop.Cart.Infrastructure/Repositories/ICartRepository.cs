@@ -13,7 +13,7 @@ public interface ICartRepository
     /// </summary>
     /// <param name="cartId"></param>
     /// <returns></returns>
-    Task<(CartResumeResponseVM?, Exception?)> Resume(Guid cartId);
+    Task<(CartResumeResponseVM?, Exception?)> Resume(CartId cartId);
 
     /// <summary>
     /// Create new cart
@@ -33,14 +33,14 @@ public interface ICartRepository
     /// </summary>
     /// <param name="cartId"></param>
     /// <returns></returns>
-    Task<(CartResponseVM?, Exception?)> OpenCart(Guid cartId);
+    Task<(CartResponseVM?, Exception?)> OpenCart(CartId cartId);
 
     /// <summary>
     /// Get Cart by user id
     /// </summary>
     /// <param name="userId"></param>
     /// <returns></returns>
-    Task<(CartResponseVM?, Exception?)> ReOpen(Guid userId);
+    Task<(CartResponseVM?, Exception?)> ReOpen(UserId userId);
 
     /// <summary>
     /// Add or update cart item
@@ -48,7 +48,7 @@ public interface ICartRepository
     /// <param name="cartId"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    Task<(CartResponseVM?, Exception?)> AddOrUpdateCartItem(Guid cartId, CartItemUpdateRequestVM request);
+    Task<(CartResponseVM?, Exception?)> AddOrUpdateCartItem(CartId cartId, CartItemUpdateRequestVM request);
 
     /// <summary>
     /// Set user to a cart
@@ -56,14 +56,14 @@ public interface ICartRepository
     /// <param name="cartId"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    Task<Exception?> SetUser(Guid cartId, CartSetUserRequestVM request);
+    Task<Exception?> SetUser(CartId cartId, CartSetUserRequestVM request);
 
     /// <summary>
     /// Clear a cart
     /// </summary>
     /// <param name="cartId"></param>
     /// <returns></returns>
-    Task<Exception?> Clear(Guid cartId);
+    Task<Exception?> Clear(CartId cartId);
 
     /// <summary>
     /// Delete cart item by SKU
@@ -71,5 +71,5 @@ public interface ICartRepository
     /// <param name="cartId"></param>
     /// <param name="sku"></param>
     /// <returns></returns>
-    Task<Exception?> DeleteItemBySKU(Guid cartId, string sku);
+    Task<Exception?> DeleteItemBySKU(CartId cartId, string sku);
 }

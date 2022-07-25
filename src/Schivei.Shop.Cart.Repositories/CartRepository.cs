@@ -7,22 +7,18 @@ namespace Schivei.Shop.Cart.Repositories;
 
 internal class CartRepository : ICartRepository
 {
-    public async Task<(CartResponseVM?, Exception?)> AddOrUpdateCartItem(Guid cartId, CartItemUpdateRequestVM request)
+    public async Task<(CartResponseVM?, Exception?)> AddOrUpdateCartItem(CartId cartId, CartItemUpdateRequestVM request)
     {
         await Task.CompletedTask;
 
-        var cart = DataMocking.Carts.FirstOrDefault(c => c.Id == cartId);
+        var cart = Get(cartId) ?? Create(cartId);
 
-        if (cart is null)
-            return (null, null);
-
-        var product = DataMocking.Products.SelectMany(p => p.Variations)
-            .SingleOrDefault(p => p.Sku == request.Sku);
+        var product = GetSku(request.Sku);
 
         if (product is null)
-            return (null, new InvalidDataException("Sku not found"));
+            return (null, new("Sku not found"));
 
-        var item = cart.Items.FirstOrDefault(i => i.Sku == request.Sku);
+        var item = GetCartItem(cart, product.Sku);
 
         if (item is null)
         {
@@ -38,9 +34,6 @@ internal class CartRepository : ICartRepository
 
     internal static CartResumeResponseVM ToCartResumeResponse(Models.Cart cart)
     {
-        var skus = DataMocking.Products.SelectMany(p => p.Variations)
-            .ToDictionary(x => x.Sku, x => x);
-
         CartResumeResponseVM resume = new()
         {
             Id = cart.Id,
@@ -49,38 +42,46 @@ internal class CartRepository : ICartRepository
         };
 
         foreach (var item in cart.Items)
-            resume.Subtotal += item.Quantity * skus[item.Sku].SellingPrice;
+        {
+            var sku = GetSku(item.Sku)!;
+            resume.Subtotal += item.Quantity * sku.SellingPrice;
+        }
 
         return resume;
     }
 
     internal static CartResponseVM ToCartResponse(Models.Cart cart)
     {
-        var skus = DataMocking.Products.SelectMany(p => p.Variations)
-            .ToDictionary(x => x.Sku, x => x);
+        var ci = cart.Items.ToArray();
+        var items = new CartItemResponseVM[ci.Length];
+
+        for (var i = 0; i < ci.Length; i++)
+        {
+            var item = ci[i];
+            var sku = GetSku(item.Sku)!;
+            items[i] = new()
+            {
+                ProductImage = sku.Product.Thumbnail,
+                ProductName = sku.Product.Name,
+                ProductPrice = sku.Price,
+                ProductSellingPrice = sku.SellingPrice,
+                ProductShortDescription = sku.ShortDescription,
+                Quantity = item.Quantity,
+                SKU = item.Sku
+            };
+        }
 
         return new()
         {
             Id = cart.Id,
             UserId = cart.UserId,
-            Items = cart.Items
-            .Select(i => new CartItemResponseVM
-            {
-                ProductImage = skus[i.Sku].Product.Thumbnail,
-                ProductName = skus[i.Sku].Product.Name,
-                ProductPrice = skus[i.Sku].Price,
-                ProductSellingPrice = skus[i.Sku].SellingPrice,
-                ProductShortDescription = skus[i.Sku].ShortDescription,
-                Quantity = i.Quantity,
-                SKU = i.Sku
-            }).ToArray()
+            Items = items
         };
     }
 
-    public Task<Exception?> Clear(Guid cartId)
+    public Task<Exception?> Clear(CartId cartId)
     {
-        DataMocking.Carts.FirstOrDefault(c => c.Id == cartId)?
-            .Items.Clear();
+        (Get(cartId) ?? Create(cartId)).Items.Clear();
 
         return Task.FromResult(null as Exception);
     }
@@ -89,9 +90,7 @@ internal class CartRepository : ICartRepository
     {
         await Task.CompletedTask;
 
-        Models.Cart cart = new() { Id = Guid.NewGuid() };
-
-        DataMocking.Carts.Add(cart);
+        var cart = Create(Guid.NewGuid());
 
         return (ToCartResponse(cart), null);
     }
@@ -100,32 +99,26 @@ internal class CartRepository : ICartRepository
     {
         await Task.CompletedTask;
 
-        var product = DataMocking.Products.SelectMany(p => p.Variations)
-            .SingleOrDefault(p => p.Sku == request.Sku);
+        var product = GetSku(request.Sku);
 
         if (product is null)
             return (null, new InvalidDataException("Sku not found"));
 
-        Models.Cart cart = new()
-        {
-            Id = Guid.NewGuid(),
-            UserId = request.UserId,
-            Items = new() { new() { Id = product.Id, Quantity = request.Quantity, Sku = request.Sku } }
-        };
+        var cart = Create(Guid.NewGuid());
+
+        cart.UserId = request.UserId;
+        cart.Items = new() { new() { Id = product.Id, Quantity = request.Quantity, Sku = request.Sku } };
 
         DataMocking.Carts.Add(cart);
 
         return (ToCartResponse(cart), null);
     }
 
-    public async Task<Exception?> DeleteItemBySKU(Guid cartId, string sku)
+    public async Task<Exception?> DeleteItemBySKU(CartId cartId, string sku)
     {
         await Task.CompletedTask;
 
-        var cart = DataMocking.Carts.FirstOrDefault(c => c.Id == cartId);
-
-        if (cart is null)
-            return null;
+        var cart = Get(cartId) ?? Create(cartId);
 
         var item = cart.Items.FirstOrDefault(x => x.Sku == sku);
 
@@ -135,65 +128,72 @@ internal class CartRepository : ICartRepository
         return null;
     }
 
-    public async Task<(CartResumeResponseVM?, Exception?)> Resume(Guid cartId)
+    public async Task<(CartResumeResponseVM?, Exception?)> Resume(CartId cartId)
     {
         await Task.CompletedTask;
 
-        var cart = DataMocking.Carts.FirstOrDefault(c => c.Id == cartId);
-
-        if (cart is null)
-        {
-            var data = await Create();
-
-            cartId = data.Item1!.Value.Id;
-
-            cart = DataMocking.Carts.FirstOrDefault(c => c.Id == cartId);
-        }
+        var cart = Get(cartId) ?? Create(cartId);
 
         return (ToCartResumeResponse(cart!), null);
     }
 
-    public async Task<(CartResponseVM?, Exception?)> OpenCart(Guid cartId)
+    public async Task<(CartResponseVM?, Exception?)> OpenCart(CartId cartId)
     {
         await Task.CompletedTask;
 
-        var cart = DataMocking.Carts.FirstOrDefault(c => c.Id == cartId);
-
-        if (cart is null)
-            return (null, null);
+        var cart = Get(cartId) ?? Create(cartId);
 
         return (ToCartResponse(cart), null);
     }
 
-    public async Task<(CartResponseVM?, Exception?)> ReOpen(Guid userId)
+    public async Task<(CartResponseVM?, Exception?)> ReOpen(UserId userId)
     {
         await Task.CompletedTask;
 
-        var cart = DataMocking.Carts.FirstOrDefault(c => c.UserId == userId);
-
-        if (cart is null)
-        {
-            var creation = await Create();
-
-            await SetUser(creation.Item1!.Value.Id, new CartSetUserRequestVM { UserId = userId });
-
-            return creation;
-        }
+        var cart = GetByUser(userId) ?? Create(Guid.NewGuid(), userId);
 
         return (ToCartResponse(cart), null);
     }
 
-    public async Task<Exception?> SetUser(Guid cartId, CartSetUserRequestVM request)
+    public async Task<Exception?> SetUser(CartId cartId, CartSetUserRequestVM request)
     {
         await Task.CompletedTask;
 
-        var cart = DataMocking.Carts.FirstOrDefault(c => c.Id == cartId);
-
-        if (cart is null)
-            return new InvalidDataException("Cart not found");
+        var cart = Get(cartId) ?? Create(cartId);
 
         cart.UserId = request.UserId;
+        DataMocking.Carts.Add(cart);
 
         return null;
     }
+
+    private static Models.Cart Create(CartId cartId, UserId userId)
+    {
+        var cart = new Models.Cart { Id = cartId, UserId = userId };
+
+        DataMocking.Carts.Add(cart);
+
+        return cart;
+    }
+
+    private static Models.Cart Create(CartId cartId)
+    {
+        var cart = new Models.Cart { Id = cartId };
+
+        DataMocking.Carts.Add(cart);
+
+        return cart;
+    }
+
+    private static CartItem? GetCartItem(Models.Cart cart, string sku) =>
+        cart.Items.FirstOrDefault(x => x.Sku == sku);
+
+    private static ProductVariation? GetSku(string sku) =>
+        DataMocking.SKUs.ContainsKey(sku) ? DataMocking.SKUs[sku] : null;
+
+    private static Models.Cart? Get(CartId cartId) =>
+        DataMocking.Carts[cartId];
+
+    private static Models.Cart? GetByUser(UserId userId) =>
+        DataMocking.Carts[userId];
 }

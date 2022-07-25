@@ -1,5 +1,8 @@
 using Schivei.Shop.Cart.Features;
 using Schivei.Shop.Cart.Infrastructure.Repositories;
+using System.Diagnostics.CodeAnalysis;
+
+[assembly: ExcludeFromCodeCoverage]
 
 var builder = WebApplication.CreateBuilder(args);
 

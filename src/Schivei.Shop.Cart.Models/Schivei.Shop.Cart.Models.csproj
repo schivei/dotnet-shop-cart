@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Schivei.Shop.Cart.Infrastructure\Schivei.Shop.Cart.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

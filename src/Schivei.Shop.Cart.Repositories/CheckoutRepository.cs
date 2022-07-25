@@ -2,30 +2,29 @@
 using Schivei.Shop.Cart.Infrastructure.DTOs.Responses;
 using Schivei.Shop.Cart.Infrastructure.Repositories;
 using Schivei.Shop.Cart.Models;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace Schivei.Shop.Cart.Repositories;
 
 internal class CheckoutRepository : ICheckoutRepository
 {
-    public async Task<(CheckoutResponseVM?, Exception?)> Calculate(Guid userId, CheckoutRequestVM request)
+    public async Task<(CheckoutResponseVM?, Exception?)> Calculate(UserId userId, CheckoutRequestVM request)
     {
         await Task.CompletedTask;
 
-        var cart = DataMocking.Carts.FirstOrDefault(c => c.UserId == userId);
+        var cart = Get(userId);
 
-        if (cart is null)
-            return (null, new InvalidDataException("Cart not found"));
+        cart ??= Create(Guid.NewGuid(), userId);
 
-        var skus = DataMocking.Products.SelectMany(p => p.Variations)
-            .ToDictionary(p => p.Sku, p => p);
+        var subtotal = cart.Items.Sum(i => GetSku(i.Sku)!.SellingPrice * i.Quantity);
 
-        var subtotal = cart.Items.Sum(i => skus[i.Sku].SellingPrice);
+        var zip = request.ZipCode.Trim('0');
 
         CheckoutResponseVM response = new()
         {
-            Delivery = decimal.Parse(DateTimeOffset.Now.AddMilliseconds(request.ZipCode.Sum(c => c)).ToString("m.s")),
-            Discount = GetDiscount(request.Coupon, subtotal),
+            Delivery = decimal.Parse(zip[0] + "." + zip[1], CultureInfo.InvariantCulture),
+            Discount = GetDiscount(request.Coupon) * subtotal,
             Subtotal = subtotal
         };
 
@@ -34,44 +33,65 @@ internal class CheckoutRepository : ICheckoutRepository
         return (response, null);
     }
 
-    private static decimal GetDiscount(string? coupon, decimal subtotal) =>
-        coupon is not null && Regex.IsMatch(coupon, "^(OFF)([0-9][0-9])$") ?
-        subtotal * decimal.Parse(Regex.Replace(coupon, "^(OFF)([0-9][0-9])$", "$2")) / 100 : 0;
-
-    public async Task<(CartResponseVM?, Exception?)> DoPayment(Guid userId, CheckoutDoPaymentRequestVM _)
+    public async Task<(CartResponseVM?, Exception?)> DoPayment(UserId userId, CheckoutDoPaymentRequestVM _)
     {
         await Task.CompletedTask;
 
-        var cart = DataMocking.Carts.FirstOrDefault(c => c.UserId == userId);
-
-        if (cart is null)
-            return (null, new InvalidDataException("Cart not found"));
+        var cart = Get(userId) ?? Create(Guid.NewGuid(), userId);
 
         if (cart.Items.Count == 0)
             return (null, new InvalidDataException("Cart is empty"));
 
-        var skus = DataMocking.Products.SelectMany(p => p.Variations)
-            .ToDictionary(p => p.Sku, p => p);
+        var items = cart.Items.ToArray();
 
-        var notAvailableSkus = new List<ProductVariation>();
-
-        foreach (var item in cart.Items)
+        var notAvailableSkus = new ProductVariation[items.Length];
+        int j = -1;
+        for (int i = 0; i < items.Length; i++)
         {
-            var sku = skus[item.Sku];
-            if (sku.Stock - item.Quantity < 0)
-                notAvailableSkus.Add(sku);
-
-            if (notAvailableSkus.Count > 0)
+            var item = items[i];
+            var sku = GetSku(item.Sku)!;
+            if (sku.Stock - item.Quantity >= 0)
                 continue;
+
+            notAvailableSkus[++j] = sku;
 
             sku.Stock -= item.Quantity;
         }
+        j++;
 
-        if (notAvailableSkus.Count > 0)
-            return (null, new AggregateException(notAvailableSkus.Select(s => new InvalidDataException($"{s.ShortDescription} is not available")).ToArray()));
+        if (j > 0)
+            return (null, GetError(notAvailableSkus[..j]));
 
         cart.Items.Clear();
 
         return (CartRepository.ToCartResponse(cart), null);
     }
+
+    private static Exception GetError(params ProductVariation[] notAvailableSkus)
+    {
+        var errors = new Exception[notAvailableSkus.Length];
+        for (var i = 0; i < notAvailableSkus.Length; i++)
+            errors[i] = new($"{notAvailableSkus[i].ShortDescription} is not available");
+
+        return new AggregateException(errors);
+    }
+
+    private static Models.Cart Create(CartId cartId, UserId userId)
+    {
+        var cart = new Models.Cart { Id = cartId, UserId = userId };
+
+        DataMocking.Carts.Add(cart);
+
+        return cart;
+    }
+
+    private static ProductVariation? GetSku(string sku) =>
+        DataMocking.SKUs.ContainsKey(sku) ? DataMocking.SKUs[sku] : null;
+
+    private static Models.Cart? Get(UserId userId) =>
+        DataMocking.Carts[userId];
+
+    private static decimal GetDiscount(string? coupon) =>
+        coupon is not null && Regex.IsMatch(coupon, "^(OFF)([0-9][0-9])$") ?
+        (decimal.Parse(Regex.Replace(coupon, "^(OFF)([0-9][0-9])$", "$2")) / 100) : 0;
 }

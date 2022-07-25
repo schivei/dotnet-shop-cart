@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Schivei.Shop.Cart.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Schivei.Shop.Cart.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [ExcludeFromCodeCoverage]
     public class ResetController : ControllerBase
     {
         [HttpGet]

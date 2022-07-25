@@ -14,7 +14,7 @@ public interface ICheckoutRepository
     /// <param name="userId"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    Task<(CheckoutResponseVM?, Exception?)> Calculate(Guid userId, CheckoutRequestVM request);
+    Task<(CheckoutResponseVM?, Exception?)> Calculate(UserId userId, CheckoutRequestVM request);
 
     /// <summary>
     /// Do payment and clear the cart
@@ -22,5 +22,5 @@ public interface ICheckoutRepository
     /// <param name="userId"></param>
     /// <param name="resquest"></param>
     /// <returns></returns>
-    Task<(CartResponseVM?, Exception?)> DoPayment(Guid userId, CheckoutDoPaymentRequestVM resquest);
+    Task<(CartResponseVM?, Exception?)> DoPayment(UserId userId, CheckoutDoPaymentRequestVM resquest);
 }

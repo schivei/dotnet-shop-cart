@@ -11,12 +11,12 @@ public class Cart
     /// <summary>
     /// Object ID
     /// </summary>
-    public Guid Id { get; set; }
+    public CartId Id { get; set; }
 
     /// <summary>
     /// Options User ID
     /// </summary>
-    public Guid? UserId { get; set; }
+    public UserId? UserId { get; set; }
 
     /// <summary>
     /// List of cart item

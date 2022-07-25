@@ -83,10 +83,14 @@ public static class DataMocking
         foreach (var variation in prd.Variations)
             variation.Product = prd;
 
-        Carts = new();
+        SKUs = Products.SelectMany(x => x.Variations).ToDictionary(x => x.Sku, x => x);
+
+        Carts = new(nameof(Cart.Id), nameof(Cart.UserId));
     }
 
     public static Product[] Products { get; }
 
-    public static ConcurrentBag<Cart> Carts { get; }
+    public static IReadOnlyDictionary<string, ProductVariation> SKUs { get; }
+
+    public static ConcurrentIndexedList<Cart> Carts { get; }
 }

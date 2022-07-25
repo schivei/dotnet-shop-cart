@@ -23,7 +23,11 @@ public abstract class ABaseController : ControllerBase
 
             if (error is not null)
             {
-                ModelState.TryAddModelException(string.Empty, error);
+                if (error is AggregateException agg)
+                    agg.InnerExceptions.ToList().ForEach(SetModelError);
+                else
+                    SetModelError(error);
+
                 return BadRequest(ModelState);
             }
 
@@ -31,10 +35,17 @@ public abstract class ABaseController : ControllerBase
         }
         catch (Exception ex)
         {
-            ModelState.TryAddModelException(string.Empty, ex);
+            if (ex is AggregateException agg)
+                agg.InnerExceptions.ToList().ForEach(SetModelError);
+            else
+                SetModelError(ex);
+
             return BadRequest(ModelState);
         }
     }
+
+    private void SetModelError(Exception error) =>
+        ModelState.TryAddModelError(string.Empty, error.Message);
 
     /// <summary>
     /// Make success return
@@ -50,7 +61,11 @@ public abstract class ABaseController : ControllerBase
 
             if (error is not null)
             {
-                ModelState.TryAddModelException(string.Empty, error);
+                if (error is AggregateException agg)
+                    agg.InnerExceptions.ToList().ForEach(SetModelError);
+                else
+                    SetModelError(error);
+
                 return BadRequest(ModelState);
             }
 
@@ -63,7 +78,11 @@ public abstract class ABaseController : ControllerBase
         }
         catch (Exception ex)
         {
-            ModelState.TryAddModelException(string.Empty, ex);
+            if (ex is AggregateException agg)
+                agg.InnerExceptions.ToList().ForEach(SetModelError);
+            else
+                SetModelError(ex);
+
             return BadRequest(ModelState);
         }
     }

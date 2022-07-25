@@ -4,6 +4,46 @@
         <name>Schivei.Shop.Cart.Infrastructure</name>
     </assembly>
     <members>
+        <member name="T:System.Collections.Concurrent.ConcurrentIndexedList`1">
+            <summary>
+            Property indexed object
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:System.Collections.Concurrent.ConcurrentIndexedList`1.#ctor(System.String[])">
+            <summary>
+            ctor
+            </summary>
+            <param name="indexers"></param>
+        </member>
+        <member name="P:System.Collections.Concurrent.ConcurrentIndexedList`1.Item(System.Object)">
+            <summary>
+            Get / Set item to key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Concurrent.ConcurrentIndexedList`1.Add(`0)">
+            <summary>
+            Add item with all indexes
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:System.Collections.Concurrent.ConcurrentIndexedList`1.Clear">
+            <summary>
+            Removes all keys and values
+            </summary>
+        </member>
+        <member name="T:System.CartId">
+            <summary>
+            BDD CartId
+            </summary>
+        </member>
+        <member name="T:System.UserId">
+            <summary>
+            BDD UserId
+            </summary>
+        </member>
         <member name="T:Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartItemUpdateRequestVM">
             <summary>
             Cart item update quantity
@@ -199,7 +239,7 @@
             Cart database and services repo
             </summary>
         </member>
-        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.Resume(System.Guid)">
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.Resume(System.CartId)">
             <summary>
             Get cart resume
             </summary>
@@ -219,21 +259,21 @@
             <param name="request"></param>
             <returns></returns>
         </member>
-        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.OpenCart(System.Guid)">
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.OpenCart(System.CartId)">
             <summary>
             Get cart
             </summary>
             <param name="cartId"></param>
             <returns></returns>
         </member>
-        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.ReOpen(System.Guid)">
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.ReOpen(System.UserId)">
             <summary>
             Get Cart by user id
             </summary>
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.AddOrUpdateCartItem(System.Guid,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartItemUpdateRequestVM)">
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.AddOrUpdateCartItem(System.CartId,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartItemUpdateRequestVM)">
             <summary>
             Add or update cart item
             </summary>
@@ -241,7 +281,7 @@
             <param name="request"></param>
             <returns></returns>
         </member>
-        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.SetUser(System.Guid,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartSetUserRequestVM)">
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.SetUser(System.CartId,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CartSetUserRequestVM)">
             <summary>
             Set user to a cart
             </summary>
@@ -249,14 +289,14 @@
             <param name="request"></param>
             <returns></returns>
         </member>
-        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.Clear(System.Guid)">
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.Clear(System.CartId)">
             <summary>
             Clear a cart
             </summary>
             <param name="cartId"></param>
             <returns></returns>
         </member>
-        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.DeleteItemBySKU(System.Guid,System.String)">
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICartRepository.DeleteItemBySKU(System.CartId,System.String)">
             <summary>
             Delete cart item by SKU
             </summary>
@@ -269,7 +309,7 @@
             Checkout database and services repo
             </summary>
         </member>
-        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICheckoutRepository.Calculate(System.Guid,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutRequestVM)">
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICheckoutRepository.Calculate(System.UserId,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutRequestVM)">
             <summary>
             Calculate the final payment value
             </summary>
@@ -277,7 +317,7 @@
             <param name="request"></param>
             <returns></returns>
         </member>
-        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICheckoutRepository.DoPayment(System.Guid,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutDoPaymentRequestVM)">
+        <member name="M:Schivei.Shop.Cart.Infrastructure.Repositories.ICheckoutRepository.DoPayment(System.UserId,Schivei.Shop.Cart.Infrastructure.DTOs.Requests.CheckoutDoPaymentRequestVM)">
             <summary>
             Do payment and clear the cart
             </summary>
