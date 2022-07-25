@@ -4,14 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+	<DocumentationFile>Schivei.Shop.Cart.Infrastructure.xml</DocumentationFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Update="$(MSBuildProjectName).xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 
 </Project>
